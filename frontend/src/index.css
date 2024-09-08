@@ -4,3 +4,12 @@
   font-family: 'Open Sans';
 
 }
+li{
+  cursor: pointer;
+}
+::-webkit-scrollbar{
+  width: 0px;
+}
+body{
+  overflow: hidden;
+}

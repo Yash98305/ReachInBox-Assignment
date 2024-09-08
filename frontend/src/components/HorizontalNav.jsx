@@ -1,5 +1,5 @@
 import React from 'react'
-import DarkSoulToggle from './DarkSoulToggle'
+import  ToggleButton  from './ToggleButton.jsx'
 
 const HorizontalNav = () => {
   return (
@@ -29,7 +29,9 @@ letterSpacing: "-0.02em",
 color: "#FFFFFF",
 marginLeft : "56px"
         }}>Onebox</div>
-        <div><DarkSoulToggle/></div>
+        <div style={{
+          // border : "2px solid red"
+        }}><ToggleButton/></div>
     </div>
   )
 }

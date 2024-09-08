@@ -1,6 +1,6 @@
 import React from "react";
 import {Avatar} from "@mui/material"
-const VerticalNav = () => {
+const VerticalNav = ({setActiveSection}) => {
   return (
     <div
       style={{
@@ -60,7 +60,7 @@ flexDirection:"column",
         gap : "32px",
         height :"65%"
       }}>
-        <li>
+        <li onClick={()=>setActiveSection(1)}>
           <svg
             width="16"
             height="19"

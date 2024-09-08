@@ -3,12 +3,13 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 import { useEffect } from "react";
+import useAuth from "../context/auth";
 const Login = () => {
+  const {setAuth} = useAuth();
   const navigate = useNavigate();
   const handleLogin = async() => {
-    window.location.href = 'https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=http://localhost:5173/home';
+    window.location.href = 'https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=http://localhost:5173/onebox';
   };
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -16,7 +17,8 @@ const Login = () => {
     
     if (token) {
       localStorage.setItem('authToken', token);
-      navigate('/home');
+      setAuth(token); 
+      navigate('/onebox');
     }
   }, [navigate]);
   return (
@@ -146,13 +148,10 @@ const Login = () => {
           }}>
             <p
               style={{
-                /* Already have an account? */
-
                 height: "25px",
                 fontWeight: 400,
                 fontSize: "16px",
                 lineHeight: "155%",
-
                 color: "#909296",
               }}
             >
