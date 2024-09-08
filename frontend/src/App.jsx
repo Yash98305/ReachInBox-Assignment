@@ -5,7 +5,8 @@ import Login from "./pages/Login.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import InboxPage from "./pages/onebox/InboxPage.jsx";
 import Body from "./components/Body.jsx";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 const App = () => {
   return (
     <>
@@ -18,6 +19,7 @@ const App = () => {
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
+      <ToastContainer/>
     </>
   );
 };

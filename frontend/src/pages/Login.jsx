@@ -6,18 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useAuth from "../context/auth";
 const Login = () => {
-  const {setAuth} = useAuth();
+  const {auth,setAuth} = useAuth();
   const navigate = useNavigate();
   const handleLogin = async() => {
     window.location.href = 'https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=http://localhost:5173/onebox';
   };
   useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const token = queryParams.get('token');
-    
-    if (token) {
-      localStorage.setItem('authToken', token);
-      setAuth(token); 
+    if (auth?.token) {
       navigate('/onebox');
     }
   }, [navigate]);

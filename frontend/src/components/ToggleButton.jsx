@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import Switch from "react-switch";
 import { FaMoon, FaSun } from "react-icons/fa"; // Import icons from react-icons
+import useAuth from "../context/auth";
 
 const ToggleButton = () => {
   const [checked, setChecked] = useState(false);
-
-  const handleChange = (nextChecked) => {
+  const {setTheme} = useAuth();
+  const handleChange = (nextChecked) => { 
     setChecked(nextChecked);
+    if(!nextChecked){
+      setTheme("light")
+    }
+    else{
+      setTheme("dark")
+    }
   };
+
 
   return (
     <label>

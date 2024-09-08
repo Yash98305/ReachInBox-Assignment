@@ -47,7 +47,7 @@ const Body = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#000000",
+          flexDirection:"column"
         }}
       >
          {activeSection === 0 && <InitialPage />}

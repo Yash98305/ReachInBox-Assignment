@@ -1,0 +1,28 @@
+.rtable{
+    width: 17rem;
+}
+    .rtable>div{
+        padding: 8px 17px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .rtable>div> p:nth-child(1){
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 15px;
+word-wrap: break-word;
+width: 39%;
+    }
+    .rtable>div > p:nth-child(2){
+font-family: 'Inter';
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+color: #B9B9B9;
+text-align: right;
+width: 59%;
+word-wrap: break-word
+    }

@@ -6,6 +6,7 @@ const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     token: "",
   });
+  const [theme, setTheme] = useState('light');  
  
   axios.defaults.headers.common["Authorization"] = `Bearer ${auth?.token}`;
 
@@ -19,11 +20,20 @@ const AuthProvider = ({ children }) => {
       });
     }
   }, []);
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.style.backgroundColor = '#000000'; // Dark mode
+      document.body.style.color = '#ffffff'; // Optional: Set text color
+    } else {
+      document.body.style.backgroundColor = '#ffffff'; // Light mode
+      document.body.style.color = '#000000'; // Optional: Set text color
+    }
+  }, [theme]);
 
   return (
     <AuthContext.Provider
       value={{
-        
+        setTheme,theme,
         auth,
         setAuth,
        
