@@ -15,7 +15,7 @@ const Login = () => {
     if (auth?.token) {
       navigate('/onebox');
     }
-  }, [navigate]);
+  }, []);
   return (
     <>
       <Header />
@@ -23,9 +23,9 @@ const Login = () => {
         style={{
           display: "flex",
           height: "87vh",
-          borderRadius: "4px",
           alignItems: "center",
           justifyContent: "center",
+          background: "#000",
         }}
       >
         <div
@@ -150,7 +150,7 @@ const Login = () => {
                 color: "#909296",
               }}
             >
-              Already have an account?
+              Already have an account ? 
              
             </p>
             <p

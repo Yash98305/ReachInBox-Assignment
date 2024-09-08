@@ -6,6 +6,9 @@ const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     token: "",
   });
+  const [open, setOpen] = useState(false);
+
+  const [sel,setSel] = useState();
   const [theme, setTheme] = useState('light');  
  
   axios.defaults.headers.common["Authorization"] = `Bearer ${auth?.token}`;
@@ -36,7 +39,7 @@ const AuthProvider = ({ children }) => {
         setTheme,theme,
         auth,
         setAuth,
-       
+        sel,setSel,open, setOpen
       }}
     >
       {children}

@@ -8,7 +8,8 @@ display: "flex",
 justifyContent: "center",
 alignItems: "center",
 padding: "10px 100px",
-borderBottom: "1px solid #25262B"
+borderBottom: "1px solid #25262B",
+background:"#000"
     }}>
 <svg width="158" height="24" viewBox="0 0 158 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 <rect x="0.617188" width="156.766" height="24" fill="url(#pattern0_1_7408)"/>

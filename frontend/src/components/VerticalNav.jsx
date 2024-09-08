@@ -15,7 +15,7 @@ const VerticalNav = ({setActiveSection}) => {
         width: "56px",
         height: "100vh",
         zIndex: 99,
-        borderRight: "1px solid #343A40",
+        borderRight: `1px solid ${theme === "dark"?"#343A40":"#E0E0E0"}`,
         background: theme === "dark"?"#101113":"#fff",
         justifyContent : "space-between"
       }}
@@ -51,7 +51,7 @@ flexDirection:"column",
             />
           </svg>
         </li>
-        <li>
+        <li onClick={()=>setActiveSection(1)}>
           <svg
             width="20"
             height="18"
@@ -73,7 +73,7 @@ flexDirection:"column",
             />
           </svg>
         </li>
-        <li>
+        <li onClick={()=>setActiveSection(1)}>
           <svg
             width="18"
             height="15"
@@ -87,7 +87,7 @@ flexDirection:"column",
             />
           </svg>
         </li>
-        <li>
+        <li onClick={()=>setActiveSection(1)}>
           <svg
             width="18"
             height="19"
@@ -101,7 +101,7 @@ flexDirection:"column",
             />
           </svg>
         </li>
-        <li>
+        <li onClick={()=>setActiveSection(1)}>
           <svg
             width="18"
             height="14"
@@ -115,7 +115,7 @@ flexDirection:"column",
             />
           </svg>
         </li>
-        <li>
+        <li onClick={()=>setActiveSection(1)}>
           <svg
             width="20"
             height="15"
@@ -129,7 +129,7 @@ flexDirection:"column",
             />
           </svg>
         </li>
-        <li>
+        <li onClick={()=>setActiveSection(1)}>
           <svg
             width="20"
             height="20"

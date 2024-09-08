@@ -3,17 +3,17 @@ import CampaignName from './svg/CampaignName'
 import Interested from './svg/Interested'
 import useAuth from '../context/auth'
 
-const List = ({key,item,openMail,setDetail}) => {
-    const {theme} = useAuth();
+const List = ({item,openMail,setDetail}) => {
+    const {setSel,theme} = useAuth();
   return (
     <>
     <hr style={{
 width: "255px",
 marginBottom: 10,
 marginTop:2,
-border: "1px solid #33383F",
+border: `1px solid ${theme === "dark"?"#33383F":"#DFE3E8"}`,
         }} />
-    <div onClick={()=>{openMail(item?.threadId); setDetail(item);}} style={{
+    <div onClick={()=>{openMail(item?.threadId); setDetail(item);setSel(item?.threadId)}} style={{
 display: "flex",
 alignItems: "flex-start",
 padding: "12px 8px",

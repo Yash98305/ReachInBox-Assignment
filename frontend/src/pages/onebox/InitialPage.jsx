@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react'
 import useAuth from '../../context/auth';
+import { useNavigate } from 'react-router-dom';
 
 const InitialPage = () => {
   const {theme,auth,setAuth} = useAuth();
-
+  const navigate =useNavigate();
   useEffect(()=>{
     const queryParams = new URLSearchParams(window.location.search);
     const token = queryParams.get('token');
     if (token) {
       localStorage.setItem('auth', JSON.stringify({token:token}));
-      setAuth({...auth,token}); 
+      setAuth({...auth,token});
     }
+
   },[])
+  
   return (
     <> <svg width={301} height={230} viewBox="0 0 301 230" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g filter="url(#filter0_f_1_12838)">

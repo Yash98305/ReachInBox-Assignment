@@ -26,3 +26,23 @@ text-align: right;
 width: 59%;
 word-wrap: break-word
     }
+div.react-switch-bg{
+border:"1px solid #343A40";
+}
+li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    border-radius: 7px;
+}
+li:hover{
+    background-color: #2F3030;
+}
+@media (prefers-color-scheme: dark) {
+    /* Styles for dark theme */
+    li:hover{
+        background-color: #E9EAEB;
+    }
+  }
