@@ -22,6 +22,7 @@ border: `1px solid ${theme === "dark" ? "#343A40" : "#E0E0E0"}`,
         boxShadow: theme === "dark" ?"0px 4px 8px rgba(255, 255, 255, 0.08)":"none",
         borderRadius: "4px",
         padding: "12px 16px",
+        marginBottom:10
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
