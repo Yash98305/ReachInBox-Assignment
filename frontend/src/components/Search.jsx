@@ -11,7 +11,7 @@ const Search = ({ setText }) => {
         style={{
           marginTop: 10,
           padding: "4px 6px",
-          width: "259px",
+          width: "100%",
           height: "28px",
           background: theme === "dark" ? "#23272C" : "#ffffff",
           border: `1px solid ${

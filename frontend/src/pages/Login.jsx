@@ -9,7 +9,7 @@ const Login = () => {
   const {auth,setAuth} = useAuth();
   const navigate = useNavigate();
   const handleLogin = async() => {
-    window.location.href = 'https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=http://localhost:5173/onebox';
+    window.location.href = 'https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=https://reachinbox-yashpatel.netlify.app/onebox';
   };
   useEffect(() => {
     if (auth?.token) {
@@ -114,7 +114,6 @@ const Login = () => {
               </defs>
             </svg>
           </Button>
-          ;
           <Button
             style={{
               width: "195px",

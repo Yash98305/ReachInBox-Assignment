@@ -16,6 +16,7 @@ const App = () => {
         <Route path="/onebox" element={<Body/>}>
           <Route index element={<Home />} />  {/* Default route when navigating to /onebox */}
           <Route path="list" element={<InboxPage />} /> {/* /onebox/list route */}
+          <Route path="*" element={<ErrorPage />} />
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>

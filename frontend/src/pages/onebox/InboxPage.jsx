@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Search from "../../components/Search";
 import List from "../../components/List";
 import axios from "axios";
@@ -17,11 +17,9 @@ import Draggable from "react-draggable";
 
 function PaperComponent(props) {
   return (
-    <Draggable
-      handle="#draggable-dialog-title"
-      cancel={'[class*="MuiDialogContent-root"]'}
-    >
-      <Paper {...props} />
+    <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
+      <Paper {...props} sx={{borderRadius: "8px !important",
+  maxWidth: "none !important",background:"none"}}/>
     </Draggable>
   );
 }
@@ -29,17 +27,20 @@ function PaperComponent(props) {
 const InboxPage = () => {
   const [data, setData] = useState([]);
   const [messageDisplay, setMessageDisplay] = useState([]);
-  const { open, setOpen, auth, theme, sel, setSel } = useAuth();
+  const { dialog, setDialog, open, setOpen, auth, theme, sel, setSel } =
+    useAuth();
   const [detail, setDetail] = useState();
   const [openDialog, setOpenDialog] = useState(false);
   const [openDialogReplay, setOpenDialogReplay] = useState(false);
   const [replay, setReplay] = useState({
     to: "",
-    toName:"",
-    from: "",fromName:"",
+    toName: "",
+    from: "",
+    fromName: "",
     subject: "",
     body: "",
-    references:[],inReplyTo:""
+    references: [],
+    inReplyTo: "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,7 +49,19 @@ const InboxPage = () => {
 
   const handleClickOpen = () => {
     setOpenDialog(true);
-  };
+  }
+  const handleKeyPress = useCallback((event) => {
+    if (event.key === "d" && !dialog && detail) {
+      setOpenDialogReplay(false);
+      setDialog(true);
+      handleClickOpen();
+    }
+    if (event.key === "r" && !dialog && detail) {
+      setOpenDialog(false);
+      setDialog(true);
+      handleClickOpenReplay();
+    }
+  }, [dialog, detail]);
 
   const handleClickOpenReplay = () => {
     setOpenDialogReplay(true);
@@ -61,10 +74,12 @@ const InboxPage = () => {
       handleDelete(sel);
       setOpenDialog(false);
     }
+    setDialog(false);
   };
 
   const handleCloseReplay = () => {
     setOpenDialogReplay(false);
+    setDialog(false);
   };
 
   const handleDelete = async (id) => {
@@ -105,6 +120,7 @@ const InboxPage = () => {
       }
     } catch (error) {
       console.log("Error fetching mail list:", error);
+      toast.error("Failed to fetch mail list");
     }
   };
 
@@ -128,21 +144,6 @@ const InboxPage = () => {
       console.log(error);
     }
   };
-  console.log("openDialogReplay",openDialogReplay);
-  console.log("openDialog",openDialog);
-  const handleKeyPress = (event) => {
-    if ((event.key === "d" || event.key === "D")) {
-      if (sel && !openDialogReplay) {
-        setOpenDialogReplay(false);
-        handleClickOpen();
-      }
-    }  if ((event.key === "r" || event.key === "R")) {
-      if (sel && !openDialog) {
-        setOpenDialog(false);
-        handleClickOpenReplay();
-      }
-    }
-  };
 
   const handleReplay = async () => {
     try {
@@ -155,32 +156,39 @@ const InboxPage = () => {
       );
       console.log(res.data);
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message)
     }finally{
-      setOpenDialogReplay(false);
-    }
-  };
+      handleCloseReplay();
+    setReplay({
+      ...replay,
+      subject: "",
+      body: "",
+      references: [],
+      inReplyTo: "",
+    });
+  }
+  }
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyPress);
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [sel]);
+  }, [handleKeyPress]);
 
   useEffect(() => {
     getMailList();
   }, [auth, open]);
   useEffect(() => {
-    setReplay({
-      ...replay,
+    setReplay((prev) => ({
+      ...prev,
       to: detail?.fromEmail,
-      toName : detail?.fromName,
-      fromName : detail?.toName,
+      toName: detail?.fromName,
+      fromName: detail?.toName,
       from: detail?.toEmail,
-    });
+    }));
   }, [detail]);
-  
+
   return (
     <>
       {/* Replay Dialog */}
@@ -217,14 +225,27 @@ const InboxPage = () => {
             }}
           >
             Reply
-            <div onClick={handleCloseReplay} style={{
-              cursor:"pointer",
-              position: "absolute",
-              right:"32px"
-            }}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M15.8307 5.34297L14.6557 4.16797L9.9974 8.8263L5.33906 4.16797L4.16406 5.34297L8.8224 10.0013L4.16406 14.6596L5.33906 15.8346L9.9974 11.1763L14.6557 15.8346L15.8307 14.6596L11.1724 10.0013L15.8307 5.34297Z" fill="white"/>
-</svg>
-</div>
+            <div
+              onClick={handleCloseReplay}
+              style={{
+                cursor: "pointer",
+                position: "absolute",
+                right: "32px",
+              }}
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.8307 5.34297L14.6557 4.16797L9.9974 8.8263L5.33906 4.16797L4.16406 5.34297L8.8224 10.0013L4.16406 14.6596L5.33906 15.8346L9.9974 11.1763L14.6557 15.8346L15.8307 14.6596L11.1724 10.0013L15.8307 5.34297Z"
+                  fill="white"
+                />
+              </svg>
+            </div>
           </DialogTitle>
           <DialogContent style={{ padding: 0 }}>
             <DialogContentText>
@@ -238,7 +259,7 @@ const InboxPage = () => {
                   lineHeight: "16.34px",
                 }}
               >
-                To : {" "}
+                To :{" "}
                 <input
                   type="text"
                   placeholder="Enter email address"
@@ -266,7 +287,7 @@ const InboxPage = () => {
                   lineHeight: "16.34px",
                 }}
               >
-                From : {" "}
+                From :{" "}
                 <input
                   type="text"
                   placeholder="Enter email address"
@@ -294,7 +315,7 @@ const InboxPage = () => {
                   lineHeight: "16.34px",
                 }}
               >
-                Subject : {" "}
+                Subject :{" "}
                 <input
                   name="subject"
                   value={replay.subject}
@@ -572,7 +593,7 @@ const InboxPage = () => {
               </div>
               <div
                 style={{
-                  height: "73vh",
+                  height: "71vh",
                   display: "flex",
                   flexDirection: "column",
                   padding: 12,
@@ -588,8 +609,9 @@ const InboxPage = () => {
                 )}
               </div>
               <div
-                onClick={handleClickOpenReplay}
-                style={{ marginLeft: 40, cursor: "pointer" }}
+                onClick={()=>{handleClickOpenReplay(); setOpenDialog(false);
+                  setDialog(true);}}
+                style={{ marginLeft: 40, cursor: "pointer",marginTop:15 }}
               >
                 {" "}
                 <svg
@@ -638,11 +660,15 @@ const InboxPage = () => {
                 alignItems: "center",
               }}
             >
-              <div>
+              <div
+                style={{
+                  maxWidth: "100%",
+                  padding: "8px 12px",
+                }}
+              >
                 <p
                   style={{
                     padding: "8px 12px",
-                    width: "268px",
                     height: "36px",
                     background: theme === "dark" ? "#23272C" : "#ECEFF3",
                     borderRadius: "8px",
@@ -694,7 +720,6 @@ const InboxPage = () => {
                     >
                       Email Id
                     </p>
-                    {console.log(messageDisplay[0], 1112)}
                     <p
                       style={{
                         color: theme === "dark" ? "#B9B9B9" : "#000000",
